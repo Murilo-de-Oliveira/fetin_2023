@@ -3,6 +3,7 @@
 
 state = scr_enemy_2_state_free;
 shoot = false;
+sprite_hit = spr_enemy_2_hit;
 event_inherited();
 
 

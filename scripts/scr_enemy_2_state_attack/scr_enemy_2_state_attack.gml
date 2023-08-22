@@ -14,10 +14,10 @@ function scr_enemy_2_state_attack(){
 	}
 	
 	if(image_index >= image_number-1){
-		state = scr_enemy_2_state_free;
 		mask_index = spr_enemy_2_idle;
 		move_state = "idle";
 		sprite_index = spr_enemy_2_idle;
-		image_index = 0;
+		image_index = 0;		
+		state = scr_enemy_2_state_free;
 	}
 }
