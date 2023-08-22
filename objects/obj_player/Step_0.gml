@@ -8,8 +8,19 @@ move = key_right - key_left != 0; //verifica se é diferente de 0
 //move vai receber true ou false
 
 //Run state machine
-state();
+if(global.dialogue == false){
+	state();
+}
+
 //mesma coisa de: script_execute(state);
+
+if(distance_to_object(obj_npc) <= 10){
+	if(keyboard_check_pressed(ord("T")) && global.dialogue == false){
+		var _npc = instance_nearest(x,y,obj_npc);
+		var _dialogue = instance_create_layer(x,y,"Dialogue",obj_dialogue);
+		_dialogue.npc_name = _npc.name;
+	}
+}
 
 if(keyboard_check(ord("R"))){
 	room_restart();
