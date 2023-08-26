@@ -23,6 +23,7 @@ can_attack = true;
 hp_max = 4;
 hp = hp_max;
 knockback_speed = 3;
+depth = -1;
 
 
 

@@ -3,6 +3,4 @@
 
 global.dialogue = false;
 
-
-
-
+global.cards = [0,0,0,0,0,0];

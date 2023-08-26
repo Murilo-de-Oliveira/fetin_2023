@@ -22,6 +22,12 @@ if(distance_to_object(obj_npc) <= 10){
 	}
 }
 
+if(place_meeting(x,y,obj_door_puzzle)){
+	if(keyboard_check(ord("I"))){
+		obj_door_puzzle.active = true;
+	}
+}
+
 if(keyboard_check(ord("R"))){
 	room_restart();
 }
