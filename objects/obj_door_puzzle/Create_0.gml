@@ -3,7 +3,6 @@
 
 puzzle = "neutral";
 active = false;
-done = false;
 
 
 

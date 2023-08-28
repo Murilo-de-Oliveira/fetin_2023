@@ -23,6 +23,9 @@ for (var i = array_length(global.list_order)-1; i >= 1; --i) {
     global.list_order[@rand] = temp;
 }
 
+//colocar um sistema onde eu consiga ver uma dica de onde colocar
+//cada carta, porque o sistema aqui tá deplorável ;-;
+
 
 
 

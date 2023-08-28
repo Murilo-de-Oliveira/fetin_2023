@@ -10,6 +10,7 @@ if(check != "loose"){
 	}
 	if(check == "neutral"){
 		check = "won";
+		global.done = true;
 	}
 }
 

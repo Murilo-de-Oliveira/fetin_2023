@@ -28,6 +28,14 @@ if(place_meeting(x,y,obj_door_puzzle)){
 	}
 }
 
+if(distance_to_object(obj_item) < 16){
+	if(keyboard_check(ord("I"))){
+		var _item = instance_nearest(x,y,obj_item);
+		_item.found = true;
+		_item.alarm[0] = 120;
+	}
+}
+
 if(keyboard_check(ord("R"))){
 	room_restart();
 }
