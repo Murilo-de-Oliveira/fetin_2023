@@ -7,6 +7,8 @@ ground = place_meeting(x, y + 1, obj_wall);
 move = key_right - key_left != 0; //verifica se é diferente de 0
 //move vai receber true ou false
 
+image_xscale = x_scale;
+
 //Run state machine
 if(global.dialogue == false){
 	state();

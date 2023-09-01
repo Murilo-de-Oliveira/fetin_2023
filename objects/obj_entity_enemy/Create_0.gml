@@ -17,8 +17,8 @@ y_scale = 1;						//escala vertical
 timer_state = 0;
 hp_max = 10;
 hp = hp_max;
-hit_by_attack = ds_list_create();
-damage = 2;
+//hit_by_attack = ds_list_create();
+//damage = 2;
 knockback_speed = 0.2;
 
 

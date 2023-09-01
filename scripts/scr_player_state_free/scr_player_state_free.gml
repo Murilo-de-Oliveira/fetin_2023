@@ -76,9 +76,10 @@ function scr_player_state_free(){
 		state = scr_player_state_roll;
 	}
 	#endregion
-	
+	/*
 	if(place_meeting(x,y,obj_spike)){
 		hspd = 0;
 		state = scr_player_hit;
 	}
+	*/
 }

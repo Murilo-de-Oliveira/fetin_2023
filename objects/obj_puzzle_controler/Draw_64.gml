@@ -21,7 +21,6 @@ if(show == true){
 for(var i = 0; i < 6; i++){
 	draw_text(50 + (10 * i),20,string(ds_list_find_value(global.list_order,i)));
 }
-*/
 
 if(show == true){
 	for(var i = 0; i < 6; i++){
@@ -34,7 +33,7 @@ for(var i = 0; i < 6; i++){
 }
 
 draw_set_color(-1);
-
+*/
 
 
 

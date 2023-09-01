@@ -4,82 +4,93 @@ function scr_enemy_state_free(){
 	switch(move_state){
 		case "idle":
 			timer_state++;
-			dir = 0;
-			if(timer_state == 300){
-				move_state = choose("idle","patrol","patrol");
-				dir = choose(1,-1);
+			if(sprite_index != spr_enemy_1_idle){
+				sprite_index = spr_enemy_1_idle;
+				image_index = 0;
+				hspd = 0;
+			}
+			
+			if(distance_to_object(obj_player) < 32 && can_attack == true){
+				state = scr_enemy_delay;
+				alarm[2] = 30;
+				hspd = 0;
+			}
+			
+			if(distance_to_object(obj_player) < 128 && distance_to_object(obj_player) >= 32){
+				move_state = "chase";
 				timer_state = 0;
 			}
-		break;
-		
+			
+			if(irandom(timer_state) > 300){
+				move_state = choose("patrol","idle","patrol");
+				timer_state = 0;
+			}
+			break;
+			
 		case "patrol":
 			timer_state++;
-			move_spd_max = 1;
-			if(timer_state == 300){
-				move_state = choose("idle","idle","patrol");
+			if(sprite_index != spr_enemy_1_move){
+				sprite_index = spr_enemy_1_move;
+				image_index = 0;
+				hspd = choose(1,-1);
+				x_scale = sign(hspd);
+			}
+			
+			//hspd = lengthdir_x(move_spd, move_dir);
+			
+			if(distance_to_object(obj_player) < 128 && distance_to_object(obj_player) >= 32){
+				move_state = "chase";
 				timer_state = 0;
 			}
-		break;
+			
+			if(distance_to_object(obj_player) < 32 && can_attack == true){
+				state = scr_enemy_delay;
+				alarm[2] = 30;
+				hspd = 0;
+			}
+			
+			if(irandom(timer_state) > 300){
+				move_state = choose("patrol","idle","patrol");
+				timer_state = 0;
+			}
+			break;
 		
 		case "chase":
-			timer_state = 0;
-			move_spd_max = 1;
-			image_xscale = sign(obj_player.x - x);
-			if(image_xscale == 0){
-				image_xscale = 1;
+			if(sprite_index != spr_enemy_1_chase){
+				sprite_index = spr_enemy_1_chase;
+				image_index = 0;
+				x_scale = sign(obj_player.x - x);
+				hspd = 2 * x_scale;
 			}
 			
-			var distance_to_player = point_distance(x, y, obj_player.x, obj_player.y);
+			if(distance_to_object(obj_player) > 128){
+				move_state = "idle";
+				timer_state = 0;
+			}
 			
-			if(distance_to_player > 128){
-				move_state = "idle";
+			if(distance_to_object(obj_player) < 32 && can_attack == true){
+				state = scr_enemy_delay;
+				alarm[2] = 30;
+				timer_state = 0;
+				hspd = 0;
 			}
-			if(distance_to_player < 32){
-				state = scr_enemy_state_attack;
+			break;
+			
+		case "hit":
+			if(sprite_index != spr_enemy_1_hit){
+				sprite_index = spr_enemy_1_hit;
+				image_index = 0;
+				dir = point_direction(x, y, obj_player.x, obj_player.y);
+				knockingback = true;
+				alarm[1] = 20; // knockback duration
+				alarm[0] = 90;
+				can_attack = false;
+				//move_state = "delay";
 			}
-			if(!instance_exists(obj_player)){
-				move_state = "idle";
+			if (knockingback == true) {
+			    hspd += lengthdir_x(2, dir);
+			    vspd -= 5;
 			}
-		break;
-		
-		default:
-			move_state = "idle";
-	}
-	
-	if(move_state != "idle"){
-		//pega a direção horizontal
-		if(move_state == "patrol"){
-			move_dir = point_direction(0,0,dir,0);
-		}
-		else{
-			move_dir = point_direction(x,0,obj_player.x,0);
-		}
-		//acelera o personagem
-		move_spd = scr_approach(move_spd, move_spd_max,acc);
-	}
-	else{
-		move_spd = scr_approach(move_spd, 0,dcc);
-	}
-	
-	//movimenta o personagem na tela
-	hspd = lengthdir_x(move_spd, move_dir); 
-	//x += hspd;
-
-	//velocidade vertical
-	vspd += grv * mass;
-	vspd = clamp(vspd, vspd_min, vspd_max);
-	
-	var distance_to_player = point_distance(x, y, obj_player.x, obj_player.y);
-	
-	if(distance_to_player < 128 && distance_to_player > 64){		
-		move_state = "chase";
-	}
-	
-	if(hspd != 0){
-		sprite_index = spr_enemy_1_idle;
-		x_scale = sign(hspd);
-	}
-	else{
-		sprite_index = spr_enemy_1_idle;
+			break;
 	}
 }
